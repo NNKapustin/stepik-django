@@ -1,19 +1,22 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from math import pi
 
 
 def rectangle_area(request, width, height):
-    return HttpResponse(f"Площадь прямоугольника размером {width}x{height} равна {width * height}")
+    # return HttpResponse(f"Площадь прямоугольника размером {width}x{height} равна {width * height}")
+    return render(request, 'geometry/rectangle.html')
 
 
 def square_area(request, width):
-    return HttpResponse(f"Площадь квадрата размером {width}x{width} равна {width ** 2}")
+    # return HttpResponse(f"Площадь квадрата размером {width}x{width} равна {width ** 2}")
+    return render(request, 'geometry/square.html')
 
 
 def circle_area(request, radius):
-    return HttpResponse(f"Площадь круга радиуса {radius} равна {pi * radius ** 2:.2f}")
+    # return HttpResponse(f"Площадь круга радиуса {radius} равна {pi * radius ** 2:.2f}")
+    return render(request, 'geometry/circle.html')
 
 
 # можно использовать HttpResponseRedirect или redirect, но используем в одном проекте один способ

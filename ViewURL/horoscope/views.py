@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 import datetime
 
@@ -44,12 +45,10 @@ zodiac_dates = {
 
 def index(request):
     zodiacs = list(zodiac_dict)
-    li_elements = ""
-    for sign in zodiacs:
-        redirect_url = reverse('horoscope-name', args=[sign])
-        li_elements += f"<li><a href='{redirect_url}'>{sign.title()}</a></li>"
-    response = f"<ol>{li_elements}</ol>"
-    return HttpResponse(response)
+    context = {
+        "zodiacs": zodiacs
+    }
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def get_zodiac_types(request):
@@ -74,10 +73,11 @@ def get_signs_of_type(request, zodiac_type):
 
 def get_info_about_sign_zodiac(request, zodiac_sign: str):
     description = zodiac_dict.get(zodiac_sign)
-    if description:
-        return HttpResponse(description)
-    else:
-        return HttpResponseNotFound(f"Неизвестный знак зодиака - {zodiac_sign}")
+    data = {
+        'sign': zodiac_sign,
+        'description_zodiac': description
+    }
+    return render(request, 'horoscope/info_zodiac.html', context=data)
 
 
 def get_info_about_sign_zodiac_by_number(request, zodiac_sign: int):
@@ -100,4 +100,3 @@ def get_info_by_date(request, month, day):
             response = key
     redirect_url = reverse('horoscope-name', args=[response])
     return HttpResponseRedirect(redirect_url)
-

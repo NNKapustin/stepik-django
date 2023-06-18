@@ -16,7 +16,8 @@ todo_list = {
 def get_todo_list(request, day):
     what_to_do = todo_list.get(day)
     if what_to_do:
-        return HttpResponse(what_to_do)
+        # return HttpResponse(what_to_do)
+        return render(request, 'week_days/greeting.html')
     else:
         return HttpResponseNotFound(f"Неизвестный день недели - {day}")
 

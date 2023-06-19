@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Гороскоп для {{ sign|capfirst }}</title>
-</head>
-<body>
-    <h1>Приложение гороскоп</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+    Гороскоп для {{ sign|capfirst }}
+{% endblock %}
+
+{% block content %}
     {% if description_zodiac is None %}
         <h2>Неправильный знак зодиака - {{ sign|upper }}</h2>
     {% else %}
-        <h2>{{ description_zodiac }}</h2>
+        <h2>{{ description_zodiac|capfirst }}</h2>
     {% endif %}
-</body>
-</html>
+{% endblock %}

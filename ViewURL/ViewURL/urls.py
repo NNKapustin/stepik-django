@@ -24,5 +24,6 @@ urlpatterns = [
     path('todo_week/', include('week_days.urls')),
     path('calculate_geometry/', include('geometry.urls')),
     path('rivs/', include('rivs.urls')),
-    path('guinness/', include('guinness.urls'))
+    path('guinness/', include('guinness.urls')),
+    path('beautiful_table/', include('table.urls'))
 ]

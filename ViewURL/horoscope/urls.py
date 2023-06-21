@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='horoscope-main'),
     path('<int:month>/<int:day>/', views.get_info_by_date),
     path('types/', views.get_zodiac_types),
     path('types/<zodiac_type>/', views.get_signs_of_type, name='zodiac-of-type'),

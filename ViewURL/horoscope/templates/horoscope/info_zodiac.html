@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load my_filter %}
+
 {% block title %}
     Гороскоп для {{ sign|capfirst }}
 {% endblock %}
@@ -12,7 +14,7 @@
 
 {% block content %}
     {% include 'includes/navbar.html' %}
-
+    <h1>{{ description_zodiac|split|first }}</h1> <!-- Используем свой фильтр split -->
     {% if description_zodiac is None %}
         <h2>Неправильный знак зодиака - {{ sign|upper }}</h2>
     {% else %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Director, Actor
 from django.db.models import F, Sum, Max, Min, Count, Avg, Value
+from django.views.generic import ListView, DetailView
 
 
 def show_all_movies(request):
@@ -19,21 +20,41 @@ def show_one_movie(request, movie_slug: str):
     return render(request, 'movie_app/one_movie.html', {'movie': movie})
 
 
-def show_all_directors(request):
-    directors = Director.objects.order_by('first_name')
-    return render(request, 'movie_app/all_directors.html', {'directors': directors})
+# def show_all_directors(request):
+#     directors = Director.objects.order_by('first_name')
+#     return render(request, 'movie_app/all_directors.html', {'directors': directors})
 
 
-def show_director_info(request, dir_id: int):
-    director = get_object_or_404(Director, id=dir_id)
-    return render(request, 'movie_app/one_director.html', {'director': director})
+class AllDirectors(ListView):
+    template_name = 'movie_app/all_directors.html'
+    model = Director
+    context_object_name = 'directors'
 
 
-def show_all_actors(request):
-    actors = Actor.objects.order_by('first_name')
-    return render(request, 'movie_app/all_actors.html', {'actors': actors})
+# def show_director_info(request, dir_id: int):
+#     director = get_object_or_404(Director, id=dir_id)
+#     return render(request, 'movie_app/one_director.html', {'director': director})
+
+class OneDirectorInfo(DetailView):
+    template_name = 'movie_app/one_director.html'
+    model = Director
 
 
-def show_actor_info(request, actor_id: int):
-    actor = get_object_or_404(Actor, id=actor_id)
-    return render(request, 'movie_app/one_actor.html', {'actor': actor})
+# def show_all_actors(request):
+#     actors = Actor.objects.order_by('first_name')
+#     return render(request, 'movie_app/all_actors.html', {'actors': actors})
+
+class AllActors(ListView):
+    template_name = 'movie_app/all_actors.html'
+    model = Actor
+    context_object_name = 'actors'
+
+
+# def show_actor_info(request, actor_id: int):
+#     actor = get_object_or_404(Actor, id=actor_id)
+#     return render(request, 'movie_app/one_actor.html', {'actor': actor})
+
+class OneActorInfo(DetailView):
+    template_name = 'movie_app/one_actor.html'
+    model = Actor
+

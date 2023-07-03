@@ -66,9 +66,9 @@ class Movie(models.Model):
     director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='movies')
     actors = models.ManyToManyField(Actor, related_name='movies')
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def get_url(self):
         return reverse('movie-info', args=[self.slug])
